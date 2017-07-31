@@ -87,7 +87,10 @@ open class PagingTableView: UITableView {
   }
 
   override open func dequeueReusableCell(withIdentifier identifier: String, for indexPath: IndexPath) -> UITableViewCell {
-    paginate(self, forIndexAt: indexPath)
+    let pagingSection = pagingDelegate?.pagingSection?(in: self) ?? 0
+    if indexPath.section == pagingSection {
+        paginate(self, forIndexAt: indexPath)
+    }
     return super.dequeueReusableCell(withIdentifier: identifier, for: indexPath)
   }
 
